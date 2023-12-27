@@ -214,5 +214,17 @@ STOPSIGNAL SIGINT
 # documentation at https://www.postgresql.org/docs/12/server-start.html notes
 # that even 90 seconds may not be long enough in many instances.
 
+# Additional steps to install pgvector
+RUN set -eux; \
+    # Install Git to clone the pgvector repository
+    apk add --no-cache git; \
+    # Clone the pgvector repository
+    git clone https://github.com/ankane/pgvector.git; \
+    # Build and install pgvector
+    cd pgvector && \
+    make && \
+    make install
+
+
 EXPOSE 5432
 CMD ["postgres"]
